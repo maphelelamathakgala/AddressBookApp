@@ -4,6 +4,9 @@
  */
 package addressbookpackage;
 
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author H
@@ -11,6 +14,7 @@ package addressbookpackage;
 public class AddressBook extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddressBook.class.getName());
+    private java.util.ArrayList<Contacts> contactList = new java.util.ArrayList<>(); //Array for List to be imported to talble
 
     /**
      * Creates new form AddressBook
@@ -18,6 +22,11 @@ public class AddressBook extends javax.swing.JFrame {
     public AddressBook() {
         initComponents();
         title.setOpaque(true);
+        scrollPane.getViewport().setBackground(java.awt.Color.WHITE);
+        submitBtn.setFocusPainted(false);
+        submitBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(31, 97, 141), 0));
+        contactTable.setRowHeight(28);
+        contactTable.setRowSorter(new javax.swing.table.TableRowSorter<>((DefaultTableModel) contactTable.getModel()));//Adds a search function to the table
     }
 
     /**
@@ -32,24 +41,32 @@ public class AddressBook extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        surnameField = new javax.swing.JTextField();
+        searchField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        addressField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        submitBtn = new javax.swing.JButton();
+        errorMessage = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        contactTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        phoneField = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        exportBtn = new javax.swing.JButton();
+        importBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         title.setBackground(new java.awt.Color(36, 50, 139));
         title.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setText("ADDRESS BOOK APP");
+        title.setText("                                                               ADDRESS BOOK APP");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("EMAIL ADRESS:");
@@ -57,8 +74,8 @@ public class AddressBook extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("SURNAME:");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setBorder(null);
+        nameField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nameField.setBorder(null);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("PHONE NO:");
@@ -69,31 +86,87 @@ public class AddressBook extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("PHYSICAL ADDRESS:");
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField5.setBorder(null);
+        surnameField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        surnameField.setBorder(null);
 
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField7.setBorder(null);
+        searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        searchField.setBorder(null);
+        searchField.addActionListener(this::searchFieldActionPerformed);
 
-        jTextField8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField8.setBorder(null);
+        emailField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        emailField.setBorder(null);
 
-        jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField9.setBorder(null);
-        jTextField9.addActionListener(this::jTextField9ActionPerformed);
+        addressField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addressField.setBorder(null);
+        addressField.addActionListener(this::addressFieldActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel6.setText("(Format: 10 digits starting with 0)");
 
-        jButton1.setBackground(new java.awt.Color(39, 11, 114));
-        jButton1.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(242, 242, 242));
-        jButton1.setText("SUBMIT");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn.setBackground(new java.awt.Color(39, 11, 114));
+        submitBtn.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        submitBtn.setForeground(new java.awt.Color(242, 242, 242));
+        submitBtn.setText("SUBMIT");
+        submitBtn.setBorder(null);
+        submitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn.addActionListener(this::submitBtnActionPerformed);
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel7.setText("Error Message");
+        errorMessage.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        errorMessage.setText("Error Message");
+        errorMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        scrollPane.setBorder(null);
+
+        contactTable.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        contactTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Surname", "Phone Numbers", "Email Address", "Physical Address"
+            }
+        ));
+        scrollPane.setViewportView(contactTable);
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setText("SEARCH CONTACT:");
+
+        phoneField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        phoneField.setBorder(null);
+        phoneField.addActionListener(this::phoneFieldActionPerformed);
+
+        searchBtn.setBackground(new java.awt.Color(39, 11, 114));
+        searchBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(242, 242, 242));
+        searchBtn.setText("SEARCH");
+        searchBtn.setBorder(null);
+        searchBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchBtn.addActionListener(this::searchBtnActionPerformed);
+
+        resetBtn.setBackground(new java.awt.Color(39, 11, 114));
+        resetBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        resetBtn.setForeground(new java.awt.Color(242, 242, 242));
+        resetBtn.setText("RESET");
+        resetBtn.setBorder(null);
+        resetBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resetBtn.addActionListener(this::resetBtnActionPerformed);
+
+        exportBtn.setBackground(java.awt.Color.orange);
+        exportBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        exportBtn.setForeground(new java.awt.Color(242, 242, 242));
+        exportBtn.setText("EXPORT");
+        exportBtn.setBorder(null);
+        exportBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exportBtn.addActionListener(this::exportBtnActionPerformed);
+
+        importBtn.setBackground(new java.awt.Color(255, 29, 45));
+        importBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        importBtn.setForeground(new java.awt.Color(242, 242, 242));
+        importBtn.setText("IMPORT");
+        importBtn.setBorder(null);
+        importBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        importBtn.addActionListener(this::importBtnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,35 +178,53 @@ public class AddressBook extends javax.swing.JFrame {
                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(198, 198, 198))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(phoneField, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                            .addComponent(surnameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(72, 72, 72)
+                                                .addComponent(jLabel5))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(jLabel1)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(291, 291, 291))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(72, 72, 72)
-                                        .addComponent(jLabel5))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(227, 227, 227)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(291, 291, 291)))
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(errorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 10, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -144,35 +235,159 @@ public class AddressBook extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(319, Short.MAX_VALUE))
+                    .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(errorMessage)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void addressFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_addressFieldActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        searchField.setText("");
+        errorMessage.setText("");
+
+        javax.swing.table.TableRowSorter<DefaultTableModel> search =  (javax.swing.table.TableRowSorter<DefaultTableModel>) contactTable.getRowSorter();
+
+        if (search != null) {
+            search.setRowFilter(null);
+        }
+    }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        
+        //Creating Variables to Record The Values In
+        String name, surname, phone, address, email;
+        name = nameField.getText();
+        surname = surnameField.getText();
+        phone = phoneField.getText();
+        address = addressField.getText();
+        email = emailField.getText();
+        
+        
+        if(name.isEmpty() || surname.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()){
+        
+            errorMessage.setText("Error! All Fields Must Be Filled!"); //This checks if any fields are empty//
+            errorMessage.setForeground(Color.red);
+            
+        }else {
+            //start of phone numbers validation
+            if(phone.length() != 10) {
+                
+                errorMessage.setText("Error! Phone numbers must be 10 digits");
+                errorMessage.setForeground(Color.red);
+                
+            }else if(phone.charAt(0) != '0'){
+                
+                errorMessage.setText("Error! Phone Number must start with 0!");
+                errorMessage.setForeground(Color.red);
+                
+            }else if(!phone.matches("\\d+")){
+                
+                errorMessage.setText("Error! Phone numbers must only contain numbers!");
+                errorMessage.setForeground(Color.red);
+                
+                //end of phone validation
+            }else if (!email.contains("@")){//start of email validation
+            
+                errorMessage.setText("Emails must contain @! (e.g @gmail.com)");
+                errorMessage.setForeground(Color.red);
+                //ennd of email validation
+            }else {
+                String username = nameField.getText().trim();
+                String userSurname = surnameField.getText().trim();
+                String phoneNumber = phoneField.getText().trim();
+                String userEmail = emailField.getText().trim();
+                String physAddress = addressField.getText().trim();
+                
+                Contacts newProfile = new Contacts(username, userSurname, phoneNumber, userEmail, physAddress );//create new profile object
+                contactList.add(newProfile); //Adds attributes of the new profile to the Array
+                
+                DefaultTableModel myTable = (DefaultTableModel) contactTable.getModel(); //Makes the Table Accessible
+                
+                myTable.addRow(new Object[]{newProfile.getName(), newProfile.getSurname()  ,newProfile.getPhone(), newProfile.getEmail(), newProfile.getAddress()   } );//Adds user details to Table, from the using the Getter Mutator in the Contacts Class
+                
+                errorMessage.setText("You have successfully added " + newProfile.getName() +" " + newProfile.getSurname() + "to the list!");//Prints Out a success message for every user added
+                errorMessage.setForeground(new java.awt.Color(0, 150, 0));
+                
+                //This Empties All fields after clicking the submit button
+                nameField.setText("");
+                surnameField.setText("");
+                phoneField.setText("");
+                emailField.setText("");
+                addressField.setText("");
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_submitBtnActionPerformed
+
+    private void phoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneFieldActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        
+        String searchText = searchField.getText().trim();
+        
+        javax.swing.table.TableRowSorter <DefaultTableModel> search =  (javax.swing.table.TableRowSorter <DefaultTableModel>) contactTable.getRowSorter();
+    
+        if (searchText.isEmpty()) {
+            search.setRowFilter(null);
+            errorMessage.setText("Error! No conntact matches / The search field is empty!");
+            errorMessage.setForeground(Color.red);
+        } else {
+            search.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + searchText));
+            errorMessage.setText("Found " + searchField.getText());
+            errorMessage.setForeground(new java.awt.Color(0, 150, 0));
+        }
+        
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportBtnActionPerformed
+
+    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,7 +415,12 @@ public class AddressBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField addressField;
+    private javax.swing.JTable contactTable;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel errorMessage;
+    private javax.swing.JButton exportBtn;
+    private javax.swing.JButton importBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,11 +428,14 @@ public class AddressBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField phoneField;
+    private javax.swing.JButton resetBtn;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JButton submitBtn;
+    private javax.swing.JTextField surnameField;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
