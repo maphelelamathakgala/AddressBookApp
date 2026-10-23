@@ -113,7 +113,6 @@ public class AddressBook extends javax.swing.JFrame {
 
         errorMessage.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        errorMessage.setText("Error Message");
         errorMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         scrollPane.setBorder(null);
@@ -207,24 +206,26 @@ public class AddressBook extends javax.swing.JFrame {
                                     .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(291, 291, 291))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(108, 108, 108))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(errorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(41, 41, 41)
-                                        .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(errorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 10, Short.MAX_VALUE)))))
+                                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1057, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -239,11 +240,12 @@ public class AddressBook extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(surnameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel5)
+                        .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -263,9 +265,9 @@ public class AddressBook extends javax.swing.JFrame {
                     .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -343,7 +345,7 @@ public class AddressBook extends javax.swing.JFrame {
                 
                 myTable.addRow(new Object[]{newProfile.getName(), newProfile.getSurname()  ,newProfile.getPhone(), newProfile.getEmail(), newProfile.getAddress()   } );//Adds user details to Table, from the using the Getter Mutator in the Contacts Class
                 
-                errorMessage.setText("You have successfully added " + newProfile.getName() +" " + newProfile.getSurname() + "to the list!");//Prints Out a success message for every user added
+                errorMessage.setText("You have successfully added " + newProfile.getName() +" " + newProfile.getSurname() + " to the list!");//Prints Out a success message for every user added
                 errorMessage.setForeground(new java.awt.Color(0, 150, 0));
                 
                 //This Empties All fields after clicking the submit button
@@ -368,14 +370,23 @@ public class AddressBook extends javax.swing.JFrame {
         String searchText = searchField.getText().trim();
         
         javax.swing.table.TableRowSorter <DefaultTableModel> search =  (javax.swing.table.TableRowSorter <DefaultTableModel>) contactTable.getRowSorter();
-    
+        
         if (searchText.isEmpty()) {
             search.setRowFilter(null);
-            errorMessage.setText("Error! No conntact matches / The search field is empty!");
+            errorMessage.setText("Error! The search field is empty!");
             errorMessage.setForeground(Color.red);
-        } else {
-            search.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + searchText));
-            errorMessage.setText("Found " + searchField.getText());
+            return;
+        }
+        
+        search.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + searchText));
+        
+        
+        if(contactTable.getRowCount() == 0){
+            
+            errorMessage.setText(searchField.getText() + " was not found, please enter a valid contact"); //This checks if the contact exists when you search
+            errorMessage.setForeground(Color.red);
+        }else{
+            errorMessage.setText(searchField.getText() + " was successfully found!");
             errorMessage.setForeground(new java.awt.Color(0, 150, 0));
         }
         
@@ -383,6 +394,24 @@ public class AddressBook extends javax.swing.JFrame {
 
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
         // TODO add your handling code here:
+        try{
+            java.io.FileWriter writer = new java.io.FileWriter("contactslist.txt"); //Saves the contacts to a file named contactlist.txt
+            
+            for(int i = 0;  i < contactList.size(); i++){
+                
+                Contacts myList = contactList.get(i);//gets the contacts form each index
+                
+                writer.write("Name: " + myList.getName() + " | Surname: " + myList.getSurname() + " | Phone Numbers: " + myList.getPhone() + " | Email Address: " + myList.getEmail() + " | Physical Address: " + myList.getAddress() + "\n");
+            }
+            writer.close();// closes the writer
+            
+            errorMessage.setText("Contacts Succcessfully saved to contactslist.txt");
+            errorMessage.setForeground(new java.awt.Color(0, 150, 0));
+        }catch (Exception e){
+            //In case something goes wrong while saving
+            errorMessage.setText("Something went wrong while saving the file");
+            errorMessage.setForeground(Color.red);
+        }
     }//GEN-LAST:event_exportBtnActionPerformed
 
     private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
